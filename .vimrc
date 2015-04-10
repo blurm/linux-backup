@@ -1,3 +1,7 @@
+" The default leader is '\', but many people prefer ',' as it's in a
+" standard location
+let mapleader=","
+
 "------------------------- Vundle ------------------------------------------
 set nocompatible " be iMproved, required
 filetype off " required
@@ -34,6 +38,7 @@ Plugin 'xolox/vim-session'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-fugitive'
+Plugin 'vim-scripts/VisIncr'
 
 " Plugin Settings {
 "   vim-session {
@@ -47,7 +52,7 @@ Plugin 'tpope/vim-fugitive'
 "   }
 "   NerdTree {
         " Run NERDTreeTabs on console vim startup
-        let g:nerdtree_tabs_open_on_console_startup=1
+        let g:nerdtree_tabs_open_on_console_startup=0
 "   }
 "   Geeknote {
         " Set the format when saving notes to Geeknote
@@ -82,6 +87,7 @@ Plugin 'tpope/vim-fugitive'
         let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
 
         " Using Eclim for completion
+        "
         let g:EclimCompletionMethod = 'omnifunc'
 
         " Enable omni completion.
@@ -169,21 +175,6 @@ endif
 "set statusline+=\ [%{getcwd()}] " Current dir
 "set statusline+=%=%-14.(%l,%c%V%)\ %p%% " Right aligned file nav info
 
-" Show window number on airline's section y
-let g:airline_section_y='[%{tabpagewinnr(tabpagenr())}] %{&encoding} %{&ff}'
-" Just press <Leader><number> and be taken to the window number you want.
-let i = 1
-while i <= 9
-execute 'nnoremap <silent> <Leader>' . i . ' :' . i . 'wincmd w<CR>'
-let i = i + 1
-endwhile
-
-" Adjust current window's size
-nmap <A-Down> <C-W>-
-nmap <A-Up> <C-W>+
-nmap <A-Left> <C-W>>
-nmap <A-Right> <C-W><
-"endif
 
 set backspace=indent,eol,start " Backspace for dummies
 set linespace=0 " No extra spaces between rows
@@ -252,10 +243,6 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Key (re)mappings {
 
-    " The default leader is '\', but many people prefer ',' as it's in a
-    " standard location
-    let mapleader=","
-
     " Insert a new line without entering insert mode
     "set timeout timeoutlen=300 ttimeoutlen=100
 
@@ -267,10 +254,47 @@ set noswapfile
     " Also,<C-S-n> is occupied by system.
     nnoremap <C-n> :bnext<CR>
     nnoremap <C-p> :bprevious<CR>
+    nnoremap <leader>q :bp<cr>:bd #<cr>
 
     " vim-session :OpenSession
     nnoremap <Leader>os :OpenSession<CR>
     let g:ctrlp_map = '<Leader>p'
+
+    " Mapping provided by Eclim
+    " Import the class under the cursor with <leader>i
+    nnoremap <silent> <buffer> <leader>i :JavaImportOrganize<cr>
+    " Search for the javadocs of the element under the cursor with <leader>d
+    nnoremap <silent> <buffer> <leader>d :JavaDocSearch -x declarations<cr>
+    nnoremap <silent> <buffer> <leader>r :Java %<cr>
+
+    " Show window number on airline's section y
+    let g:airline_section_y='[%{tabpagewinnr(tabpagenr())}] %{&encoding} %{&ff}'
+    " Just press <Leader><number> and be taken to the window number you want.
+    "let i = 1
+    "while i <= 9
+    "execute 'nnoremap <silent> <Leader>' . i . ' :' . i . 'wincmd w<CR>'
+    "let i = i + 1
+    "endwhile
+
+    nnoremap <silent> <Leader>1 :1wincmd w<CR>
+    nnoremap <silent> <Leader>2 :2wincmd w<CR>
+    nnoremap <silent> <Leader>3 :3wincmd w<CR>
+    nnoremap <silent> <Leader>4 :4wincmd w<CR>
+    nnoremap <silent> <Leader>5 :5wincmd w<CR>
+    nnoremap <silent> <Leader>6 :6wincmd w<CR>
+    nnoremap <silent> <Leader>7 :7wincmd w<CR>
+    nnoremap <silent> <Leader>8 :8wincmd w<CR>
+    nnoremap <silent> <Leader>9 :9wincmd w<CR>
+
+    " Adjust current window's size
+    nmap <A-Down> <C-W>-
+    nmap <A-Up> <C-W>+
+    nmap <A-Left> <C-W>>
+    nmap <A-Right> <C-W><
+    "endif
+
+    " Auto save current buffer when leave insert mode
+    autocmd InsertLeave * update
 " }
 
 
