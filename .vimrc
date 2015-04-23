@@ -22,10 +22,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'kien/ctrlp.vim'
-"Plugin 'ervandew/supertab'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-"Plugin 'Raimondi/delimitMate'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'neilagabriel/vim-geeknote'
 Plugin 'scrooloose/nerdcommenter'
@@ -39,6 +37,8 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-fugitive'
 Plugin 'vim-scripts/VisIncr'
+"Plugin 'Raimondi/delimitMate'
+"Plugin 'ervandew/supertab'
 
 " Plugin Settings {
 "   vim-session {
@@ -62,7 +62,7 @@ Plugin 'vim-scripts/VisIncr'
         " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
         let g:UltiSnipsExpandTrigger = '<tab>'
         let g:UltiSnipsJumpForwardTrigger = '<tab>'
-        let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
+        let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
         " If you want :UltiSnipsEdit to split your window.
         let g:UltiSnipsEditSplit="vertical"
         " When type UltisnipsEdit, the file will be saved into this dir
@@ -71,13 +71,18 @@ Plugin 'vim-scripts/VisIncr'
         "let g:UltiSnipsSnippetDirectories = ['UltiSnips']
 "   }
 "   Airline {
+        " When complete option was triggered, a scratch window will display.
+        " When work with airline, a new buffer named [no nam] will be created
+        " displaying same content with scratch window. This will lead to a
+        " flickering when cycling complete options
+        set completeopt-=preview
         let g:airline_powerline_fonts=1
         let g:airline_theme='durant'
         let g:airline#extensions#tabline#enabled = 1
+       " }
 
 "   YouCompleteMe {
         let g:acp_enableAtStartup = 0
-
         " enable completion from tags
         let g:ycm_collect_identifiers_from_tags_files = 1
 
@@ -270,11 +275,11 @@ set noswapfile
     " Show window number on airline's section y
     let g:airline_section_y='[%{tabpagewinnr(tabpagenr())}] %{&encoding} %{&ff}'
     " Just press <Leader><number> and be taken to the window number you want.
-    "let i = 1
-    "while i <= 9
-    "execute 'nnoremap <silent> <Leader>' . i . ' :' . i . 'wincmd w<CR>'
-    "let i = i + 1
-    "endwhile
+    let i = 1
+    while i <= 9
+    execute 'nnoremap <silent> <Leader>' . i . ' :' . i . 'wincmd w<CR>'
+    let i = i + 1
+    endwhile
 
     nnoremap <silent> <Leader>1 :1wincmd w<CR>
     nnoremap <silent> <Leader>2 :2wincmd w<CR>
